@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * This configuration is used to for the Sanity Studio that’s mounted on the `\src\app\studio\[[...tool]]\page.tsx` route
+ * This configuration is used to for the Sanity Studio that's mounted on the `\src\app\studio\[[...tool]]\page.tsx` route
  */
 
 import {visionTool} from '@sanity/vision'
@@ -12,7 +12,8 @@ import {structureTool} from 'sanity/structure'
 import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schema} from './src/sanity/schemaTypes'
 import {structure} from './src/sanity/structure'
-import { resolve } from '@/sanity/presentation/resolve'
+// Change the import path from @/ to a relative path
+import { resolve } from './src/sanity/presentation/resolve'
 
 import { presentationTool } from 'sanity/presentation'
 
