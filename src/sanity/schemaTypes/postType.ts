@@ -56,6 +56,11 @@ export const postType = defineType({
       of: [defineArrayMember({ type: "reference", to: { type: "post" } })],
       validation: (Rule) => Rule.max(3).warning("Max 3 related blogs"),
     }),
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+    }),
   ],
   preview: {
     select: {

@@ -6,6 +6,20 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 
+export const generateMetadata = async () => {
+  const { data } = await sanityFetch({ query: HOME_QUERY });
+  if (!data?.seo) {
+    return null;
+  }
+
+  const { title, description } = data.seo;
+
+  return {
+    title,
+    description,
+  };
+};
+
 export default async function Home() {
   const { data } = await sanityFetch({ query: HOME_QUERY });
 
@@ -74,7 +88,10 @@ export default async function Home() {
           if (block._type === "ctaSectionType") {
             const { heading, description, button } = block;
             return (
-              <div className="bg-gradient-to-r from-purple-100 to-pink-100 py-16" key={block._key}>
+              <div
+                className="bg-gradient-to-r from-purple-100 to-pink-100 py-16"
+                key={block._key}
+              >
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                   <div className="text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">

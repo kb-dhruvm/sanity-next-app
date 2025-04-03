@@ -80,6 +80,7 @@ export type Home = {
   } & HeroSection | {
     _key: string;
   } & CtaSectionType>;
+  seo?: Seo;
 };
 
 export type CtaSectionType = {
@@ -251,6 +252,13 @@ export type Post = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "post";
   }>;
+  seo?: Seo;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  description?: string;
 };
 
 export type Author = {
@@ -399,7 +407,7 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Home | CtaSectionType | HeroSection | Button | Post | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Home | CtaSectionType | HeroSection | Button | Post | Seo | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_QUERY
@@ -416,6 +424,7 @@ export type HOME_QUERYResult = {
   } & CtaSectionType | {
     _key: string;
   } & HeroSection>;
+  seo?: Seo;
 } | null;
 // Variable: POSTS_QUERY
 // Query: *[_type == "post" && defined(slug.current)][0...12]{  _id, title, slug, author->}
@@ -464,7 +473,7 @@ export type POSTS_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: POST_QUERY
-// Query: *[_type == "post" && slug.current == $slug][0]{  title, body, mainImage}
+// Query: *[_type == "post" && slug.current == $slug][0]{  title, body, mainImage, seo}
 export type POST_QUERYResult = {
   title: string | null;
   body: Array<{
@@ -511,6 +520,7 @@ export type POST_QUERYResult = {
     alt?: string;
     _type: "image";
   } | null;
+  seo: Seo | null;
 } | null;
 
 // Query TypeMap
@@ -519,6 +529,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"home\"][0]": HOME_QUERYResult;
     "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug, author->\n}": POSTS_QUERYResult;
-    "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage\n}": POST_QUERYResult;
+    "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage, seo\n}": POST_QUERYResult;
   }
 }

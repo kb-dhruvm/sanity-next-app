@@ -19,5 +19,10 @@ export const homeType = defineType({
       type: "array",
       of: [{ type: "heroSection" }, { type: "ctaSectionType" }],
     }),
+    defineField({
+      name: "seo",
+      title: "SEO",
+      type: "seo",
+    }),
   ],
 });
