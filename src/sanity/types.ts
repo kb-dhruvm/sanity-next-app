@@ -68,6 +68,27 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Navigation = {
+  _id: string;
+  _type: "navigation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  navItems?: Array<{
+    _key: string;
+  } & NavItem>;
+};
+
+export type NavItem = {
+  _type: "navItem";
+  title?: string;
+  link?: string;
+  haveSubItems?: boolean;
+  subItems?: Array<{
+    _key: string;
+  } & NavItem>;
+};
+
 export type CtaSectionType = {
   _type: "ctaSectionType";
   heading?: string;
@@ -433,7 +454,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CtaSectionType | HeroSection | Button | Post | Author | Category | Slug | BlockContent | TranslationMetadata | InternationalizedArrayReferenceValue | Home | Seo | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Navigation | NavItem | CtaSectionType | HeroSection | Button | Post | Author | Category | Slug | BlockContent | TranslationMetadata | InternationalizedArrayReferenceValue | Home | Seo | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_QUERY

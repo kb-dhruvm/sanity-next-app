@@ -9,6 +9,8 @@ import { buttonType } from "./buttonType";
 import { homeType } from "./homeType";
 import { ctaSectionType } from "./ctaSectionType";
 import { seoType } from "./seoType";
+import { navItemType } from "./navItemType";
+import { navigationType } from "./navigationType";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -21,5 +23,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     buttonType,
     homeType,
     seoType,
+    navItemType,
+    navigationType,
   ],
 };
