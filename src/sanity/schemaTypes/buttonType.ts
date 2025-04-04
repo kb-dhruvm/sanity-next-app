@@ -14,7 +14,7 @@ export const buttonType = defineType({
     defineField({
       name: "link",
       title: "Link",
-      type: "url",
+      type: "string",
       validation: (Rule) => Rule.required().error("Link is required"),
     }),
     defineField({
