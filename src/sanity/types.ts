@@ -68,21 +68,6 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Home = {
-  _id: string;
-  _type: "home";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  body?: Array<{
-    _key: string;
-  } & HeroSection | {
-    _key: string;
-  } & CtaSectionType>;
-  seo?: Seo;
-};
-
 export type CtaSectionType = {
   _type: "ctaSectionType";
   heading?: string;
@@ -255,12 +240,6 @@ export type Post = {
   seo?: Seo;
 };
 
-export type Seo = {
-  _type: "seo";
-  title?: string;
-  description?: string;
-};
-
 export type Author = {
   _id: string;
   _type: "author";
@@ -350,6 +329,49 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
+export type TranslationMetadata = {
+  _id: string;
+  _type: "translation.metadata";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  translations?: Array<{
+    _key: string;
+  } & InternationalizedArrayReferenceValue>;
+  schemaTypes?: Array<string>;
+};
+
+export type InternationalizedArrayReferenceValue = {
+  _type: "internationalizedArrayReferenceValue";
+  value?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "home";
+  };
+};
+
+export type Home = {
+  _id: string;
+  _type: "home";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  body?: Array<{
+    _key: string;
+  } & HeroSection | {
+    _key: string;
+  } & CtaSectionType>;
+  seo?: Seo;
+};
+
+export type Seo = {
+  _type: "seo";
+  title?: string;
+  description?: string;
+};
+
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
   top?: number;
@@ -407,11 +429,15 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Home | CtaSectionType | HeroSection | Button | Post | Seo | Author | Category | Slug | BlockContent | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata;
+export type InternationalizedArrayReference = Array<{
+  _key: string;
+} & InternationalizedArrayReferenceValue>;
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | CtaSectionType | HeroSection | Button | Post | Author | Category | Slug | BlockContent | TranslationMetadata | InternationalizedArrayReferenceValue | Home | Seo | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: HOME_QUERY
-// Query: *[_type == "home"][0]
+// Query: *[_type == "home" && language == $local][0]
 export type HOME_QUERYResult = {
   _id: string;
   _type: "home";
@@ -527,7 +553,7 @@ export type POST_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"home\"][0]": HOME_QUERYResult;
+    "*[_type == \"home\" && language == $local][0]": HOME_QUERYResult;
     "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug, author->\n}": POSTS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage, seo\n}": POST_QUERYResult;
   }

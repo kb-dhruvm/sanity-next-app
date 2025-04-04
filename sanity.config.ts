@@ -16,6 +16,7 @@ import {structure} from './src/sanity/structure'
 import { resolve } from './src/sanity/presentation/resolve'
 
 import { presentationTool } from 'sanity/presentation'
+import {documentInternationalization} from '@sanity/document-internationalization'
 
 export default defineConfig({
   basePath: '/studio',
@@ -35,6 +36,15 @@ export default defineConfig({
           enable: '/api/draft-mode/enable',
         }
       }
+    }),
+    documentInternationalization({
+      // Required configuration
+      supportedLanguages: [
+        {id: 'es', title: 'Spanish'},
+        {id: 'en', title: 'English'}
+      ],
+      
+      schemaTypes: ['home'],
     })
   ],
 })

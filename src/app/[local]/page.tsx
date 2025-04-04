@@ -6,8 +6,17 @@ import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 
-export const generateMetadata = async () => {
-  const { data } = await sanityFetch({ query: HOME_QUERY });
+type IPageProps = {
+  params: Promise<{ local: string }>;
+};
+
+export const generateMetadata = async ({ params }: IPageProps) => {
+  const { local } = await params;
+
+  const { data } = await sanityFetch({
+    query: HOME_QUERY,
+    params: { local },
+  });
   if (!data?.seo) {
     return null;
   }
@@ -20,8 +29,13 @@ export const generateMetadata = async () => {
   };
 };
 
-export default async function Home() {
-  const { data } = await sanityFetch({ query: HOME_QUERY });
+export default async function Home({ params }: IPageProps) {
+  const { local } = await params;
+
+  const { data } = await sanityFetch({
+    query: HOME_QUERY,
+    params: { local },
+  });
 
   if (!data) {
     return null;

@@ -9,14 +9,18 @@ import { PortableTextComponent } from "@/sanity/components/PortableTextComponent
 import { Metadata } from "next";
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; local: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  
+  const { slug } = await params;
+
   const { data: post } = await sanityFetch({
     query: POST_QUERY,
-    params: await params,
+    params: {
+      slug,
+      // local,
+    },
   });
 
   if (!post?.seo) {
@@ -31,14 +35,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function Page({ params }: Props) {
+  const { slug } = await params;
+  
   const { data: post } = await sanityFetch({
     query: POST_QUERY,
-    params: await params,
+    params: {
+      slug,
+      // local,
+    },
   });
 
   if (!post) {
