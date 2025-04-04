@@ -13,3 +13,7 @@ export const POST_QUERY =
   defineQuery(`*[_type == "post" && slug.current == $slug][0]{
   title, body, mainImage, seo
 }`);
+
+export const NAVIGATION_QUERY = defineQuery(
+  `*[_type == "navigation" && type == $type][0]`
+)

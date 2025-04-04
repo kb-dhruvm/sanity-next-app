@@ -74,6 +74,7 @@ export type Navigation = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  type?: "header" | "footer";
   navItems?: Array<{
     _key: string;
   } & NavItem>;
@@ -569,6 +570,19 @@ export type POST_QUERYResult = {
   } | null;
   seo: Seo | null;
 } | null;
+// Variable: NAVIGATION_QUERY
+// Query: *[_type == "navigation" && type == $type][0]
+export type NAVIGATION_QUERYResult = {
+  _id: string;
+  _type: "navigation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  type?: "footer" | "header";
+  navItems?: Array<{
+    _key: string;
+  } & NavItem>;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -577,5 +591,6 @@ declare module "@sanity/client" {
     "*[_type == \"home\" && language == $local][0]": HOME_QUERYResult;
     "*[_type == \"post\" && defined(slug.current)][0...12]{\n  _id, title, slug, author->\n}": POSTS_QUERYResult;
     "*[_type == \"post\" && slug.current == $slug][0]{\n  title, body, mainImage, seo\n}": POST_QUERYResult;
+    "*[_type == \"navigation\" && type == $type][0]": NAVIGATION_QUERYResult;
   }
 }

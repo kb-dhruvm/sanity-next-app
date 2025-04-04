@@ -360,6 +360,23 @@
           "type": "string"
         }
       },
+      "type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "header"
+            },
+            {
+              "type": "string",
+              "value": "footer"
+            }
+          ]
+        },
+        "optional": true
+      },
       "navItems": {
         "type": "objectAttribute",
         "value": {

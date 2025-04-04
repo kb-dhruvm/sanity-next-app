@@ -21,12 +21,13 @@ export const navigationType = defineType({
       validation: (Rule) =>
         Rule.custom(async (selectedType, context) => {
           if (!selectedType || !context.document) return true; // validation is required anyway
+          const currentId = context.document._id.replace(/^drafts\./, "");
 
           const existing = await client.fetch(
             `*[_type == "navigation" && type == $type && _id != $id][0]`,
             {
               type: selectedType,
-              id: context.document._id,
+              id: currentId,
             }
           );
 
